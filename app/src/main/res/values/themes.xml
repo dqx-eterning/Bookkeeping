@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Bookkeeping" parent="XUIBaseTheme">
+
+
+        <!--自定义标题栏样式方法1,通过自定义通用属性-->
+        <item name="xui_actionbar_color">@color/light</item>
+        <item name="xui_actionbar_text_color">@color/xui_config_color_primary_text</item>
+        <item name="xui_actionbar_immersive">true</item>
+
+    </style>
+
+</resources>
