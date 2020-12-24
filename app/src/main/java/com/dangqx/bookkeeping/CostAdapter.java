@@ -44,7 +44,7 @@ public class CostAdapter extends RecyclerView.Adapter<CostAdapter.ViewHolder> {
                 //Toast.makeText(mContext, "跳转到详细情况页面", Toast.LENGTH_SHORT).show();
                 cost = mCostList.get(holder.getLayoutPosition());
                 Intent intent = new Intent(mContext,EditActivity.class);
-                intent.putExtra("cost", CostAdapter.this.cost);
+                intent.putExtra("cost",cost);
                 mContext.startActivity(intent);
             }
         });

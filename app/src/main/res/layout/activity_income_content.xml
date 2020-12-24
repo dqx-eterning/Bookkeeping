@@ -14,12 +14,12 @@
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:title="花费明细"/>
+            app:title="收入明细"/>
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -36,7 +36,7 @@
         app:fab_labelStyle="@style/menu_sons_style"
         app:fab_labelsPosition="left">
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fab_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="#ff9400"
@@ -45,7 +45,7 @@
             app:fab_size="mini"
             app:fab_title="添加支出记录" />
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_income"
+            android:id="@+id/fab_income_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="#166dfa"
@@ -54,6 +54,6 @@
             app:fab_size="mini"
             app:fab_title="添加收入记录" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
-        
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

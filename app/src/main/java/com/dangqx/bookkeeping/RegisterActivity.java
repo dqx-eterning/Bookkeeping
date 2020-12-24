@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -45,11 +46,15 @@ public class RegisterActivity extends BaseActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User();
-                user.setUsername(username.getText().toString());
-                user.setPassword(password.getText().toString());
-                user.save();
-                showDialog();
+                if (username.getText() == null || password.getText() == null){
+                    Toast.makeText(RegisterActivity.this, "用户名与密码均不能为空！", Toast.LENGTH_SHORT).show();
+                }else{
+                    User user = new User();
+                    user.setUsername(username.getText().toString());
+                    user.setPassword(password.getText().toString());
+                    user.save();
+                    showDialog();
+                }
             }
         });
     }
@@ -79,20 +84,5 @@ public class RegisterActivity extends BaseActivity {
         AlertDialog dialog=builder.create();
         dialog.show();
     }
-    /**
-     * 点击空白隐藏输入键盘
-     * @param event
-     * @return
-     */
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(null != this.getCurrentFocus()){
-            /**
-             * 点击空白位置 隐藏软键盘
-             */
-            InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-        }
-        return super.onTouchEvent(event);
-    }
+
 }

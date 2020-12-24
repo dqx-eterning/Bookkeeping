@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:title="编辑"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:orientation="vertical">
+            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="收入:(单位：元)"
+                app:met_floatingLabel="normal"
+                app:met_baseColor="#000"
+                app:met_floatingLabelTextSize="10sp"
+                android:id="@+id/edit_money_in"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:met_primaryColor="@color/xui_btn_green_normal_color"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/income_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:hint="点击选择日期"
+                android:textSize="14dp" />
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="300dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="描述："/>
+            <EditText
+                android:id="@+id/edit_description_in"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:padding="5dp"
+                android:minLines="5"
+                android:gravity="top"
+                android:background="@drawable/order_edt_note_bg"
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="300dp"
+            android:orientation="horizontal">
+
+            <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+                android:id="@+id/button_add_in"
+                style="@style/RoundButton.Auto"
+                android:layout_margin="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="添加" />
+            <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+                android:id="@+id/button_del_in"
+                style="@style/RoundButton.Auto"
+                android:layout_margin="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="删除" />
+            <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+                style="@style/RoundButton.Auto"
+                android:id="@+id/button_back_in"
+                android:layout_margin="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="返回" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

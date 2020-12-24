@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dangqx.bookkeeping.db.Cost;
 import com.dangqx.bookkeeping.db.User;
 import com.xuexiang.xui.XUI;
 
@@ -33,7 +34,7 @@ public class LoginActivity extends BaseActivity {
         user.setUsername("dang");
         user.setPassword("123");
         user.save();*/
-        //LitePal.deleteAll(User.class,"username = ?","wang");
+       /* LitePal.deleteAll(Cost.class,"id = ? ","14");*/
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

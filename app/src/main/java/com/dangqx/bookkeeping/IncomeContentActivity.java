@@ -4,49 +4,35 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ListView;
-import android.widget.Toast;
-
 
 import com.dangqx.bookkeeping.db.Cost;
+import com.dangqx.bookkeeping.db.Income;
 import com.dangqx.bookkeeping.util.TimeUtil;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.xuexiang.xui.XUI;
 
 import org.litepal.LitePal;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
-public class ContentActivity extends BaseActivity {
-    /**
-     * 字符1 代表只查询今天
-     * 字符2 代表查询本周
-     * 字符3 代表查询本月
-     * 字符4 代表查询本年
-     */
+public class IncomeContentActivity extends AppCompatActivity {
+
+
     private RecyclerView recyclerView;
-    private CostAdapter adapter;
+    private IncomeAdapter adapter;
     private int userId;
-    private List<Cost> costs;
+    private List<Income> incomes;
 
     TimeUtil timeUtil = new TimeUtil();
     @Override
@@ -54,7 +40,7 @@ public class ContentActivity extends BaseActivity {
         XUI.initTheme(this);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
+        setContentView(R.layout.activity_income_content);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,39 +51,39 @@ public class ContentActivity extends BaseActivity {
         }
 
         userId = getIntent().getIntExtra("userId", 0);
-        //Log.d("用户id++++", "onCreate: "+userId);
-        costs = LitePal.where("userId = ?", String.valueOf(userId)).find(Cost.class);
+        Log.d("用户id++++", "onCreate: "+userId);
+        incomes = LitePal.where("userId = ?", String.valueOf(userId)).find(Income.class);
 
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view_in);
         GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
         String extra = getIntent().getStringExtra("tag");
 
         if (extra.equals("1")){
-            List<Cost> todayCosts = todayCosts();
-            adapter = new CostAdapter(todayCosts);
+            List<Income> incomes = todayIncomes();
+            adapter = new IncomeAdapter(incomes);
             recyclerView.setAdapter(adapter);
         }else if (extra.equals("2")){
-            List<Cost> weekCosts = weekCosts();
-            adapter = new CostAdapter(weekCosts);
+            List<Income> incomes = weekIncomes();
+            adapter = new IncomeAdapter(incomes);
             recyclerView.setAdapter(adapter);
         }else if (extra.equals("3")){
-            List<Cost> monthCosts = monthCosts();
-            adapter = new CostAdapter(monthCosts);
+            List<Income> incomes = monthIncomes();
+            adapter = new IncomeAdapter(incomes);
             recyclerView.setAdapter(adapter);
         }else if (extra.equals("4")){
-            List<Cost> yearCosts = yearCosts();
-            adapter = new CostAdapter(yearCosts);
+            List<Income> incomes = yearIncomes();
+            adapter = new IncomeAdapter(incomes);
             recyclerView.setAdapter(adapter);
         }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        FloatingActionButton fabIncome = findViewById(R.id.fab_income);
+        FloatingActionButton fab = findViewById(R.id.fab_in);
+        FloatingActionButton fabIncome = findViewById(R.id.fab_income_in);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //此处写添加支出的逻辑
-                Intent intent = new Intent(ContentActivity.this,EditActivity.class);
+                Intent intent = new Intent(IncomeContentActivity.this,EditActivity.class);
                 intent.putExtra("userId",userId);
                 startActivity(intent);
             }
@@ -106,7 +92,7 @@ public class ContentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //此处为添加收入
-                Intent intent = new Intent(ContentActivity.this,IncomeEditActivity.class);
+                Intent intent = new Intent(IncomeContentActivity.this,IncomeEditActivity.class);
                 intent.putExtra("userId",userId);
                 startActivity(intent);
             }
@@ -121,24 +107,7 @@ public class ContentActivity extends BaseActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.select:
-                //Toast.makeText(this, "点击了搜索", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ContentActivity.this,SelectActivity.class);
-                intent.putExtra("userId", String.valueOf(userId));
-                startActivity(intent);
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_sellect,menu);
+        if (item.getItemId() == android.R.id.home) finish();
         return true;
     }
 
@@ -146,61 +115,61 @@ public class ContentActivity extends BaseActivity {
      * 查询今天的记录
      * @return
      */
-    private List<Cost> todayCosts(){
-        List<Cost> costList = new ArrayList<>();
+    private List<Income> todayIncomes(){
+       List<Income> incomeList = new ArrayList<>();
         String times = timeUtil.getTimes();
-        for (Cost cost : costs) {
-            if (cost.getDate().equals(times)){
-                costList.add(cost);
-            }
+        for (Income income : incomes) {
+           if (income.getDate().equals(times)){
+               incomeList.add(income);
+           }
         }
-        return costList;
+        return incomeList;
     }
 
     /**
      * 查询本周的记录
      * @return
      */
-    private List<Cost> weekCosts(){
-        List<Cost> costList = new ArrayList<>();
+    private List<Income> weekIncomes(){
+        List<Income> incomeList = new ArrayList<>();
         Date firstInWeek = timeUtil.findFirstInWeek();
         Date lastInWeek = timeUtil.findLastInWeek();
-        for (Cost cost : costs) {
-            if (timeUtil.stringToDate(cost.getDate()).compareTo(lastInWeek) <=0 &&
-                    firstInWeek.compareTo(timeUtil.stringToDate(cost.getDate())) <= 0){
-                costList.add(cost);
+        for (Income income : incomes) {
+            if (timeUtil.stringToDate(income.getDate()).compareTo(lastInWeek) <=0 &&
+                    firstInWeek.compareTo(timeUtil.stringToDate(income.getDate())) <= 0){
+               incomeList.add(income);
             }
         }
-        return costList;
+        return incomeList;
     }
 
     /**
      * 查询本月的记录
      * @return
      */
-    private List<Cost> monthCosts(){
-        List<Cost> costList = new ArrayList<>();
+    private List<Income> monthIncomes(){
+        List<Income> incomeList = new ArrayList<>();
         String month = timeUtil.getTimes().substring(5, 7);
-        for (Cost cost : costs) {
-            if (cost.getDate().substring(5,7).equals(month)){
-                costList.add(cost);
+        for (Income income : incomes) {
+            if (income.getDate().substring(5,7).equals(month)){
+               incomeList.add(income);
             }
         }
-        return costList;
+        return incomeList;
     }
 
     /**
      * 查询本年的记录
      * @return
      */
-    private List<Cost> yearCosts(){
-        List<Cost> costList = new ArrayList<>();
+    private List<Income> yearIncomes(){
+        List<Income> incomeList = new ArrayList<>();
         String month = timeUtil.getTimes().substring(0, 4);
-        for (Cost cost : costs) {
-            if (cost.getDate().substring(0,4).equals(month)){
-                costList.add(cost);
+        for (Income income : incomes) {
+            if (income.getDate().substring(0,4).equals(month)){
+                incomeList.add(income);
             }
         }
-        return costList;
+        return incomeList;
     }
 }

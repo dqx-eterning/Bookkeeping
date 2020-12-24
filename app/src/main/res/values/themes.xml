@@ -9,5 +9,9 @@
         <item name="xui_actionbar_immersive">true</item>
 
     </style>
+    <style name="menu_sons_style">
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textColor">#CDAD00</item>
+    </style>
 
 </resources>
