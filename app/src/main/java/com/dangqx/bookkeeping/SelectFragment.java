@@ -64,7 +64,7 @@ public class SelectFragment extends Fragment {
             String date = mCostList.get(position).getDate();
             String category = mCostList.get(position).getCategory();
             String description = mCostList.get(position).getDescription();
-            costInfo.setText("金额: "+money+",日期: "+date+",分类: "+category+",描述: "+description);
+            costInfo.setText("金额: "+money+"¥"+",日期: "+date+",分类: "+category+",描述: "+description);
             return view;
         }
     }

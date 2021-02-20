@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
         <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
@@ -25,28 +25,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入日期"
+            android:inputType="textNoSuggestions"
             app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="日期格式yyyy-MM-dd"
-            app:met_floatingLabelTextSize ="13dp"
-            app:met_autoValidate= "true"
+            app:met_floatingLabelText="日期格式: yyyy-MM-dd"
+            app:met_floatingLabelTextSize ="12sp"
+            app:met_validateOnFocusLost= "true"
             app:met_regexp="^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$"
             app:met_errorMessage = "日期格式有误"/>
         <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
             android:id="@+id/select_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
             android:hint="请输入类别"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelText="衣，食，住，行"
-            app:met_floatingLabelTextSize ="13dp"/>
-        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+            app:met_floatingLabelTextSize ="12sp"/>
+       <!-- <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
             android:id="@+id/select_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入金额范围"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelText="金额用，隔开 如200,300"
-            app:met_floatingLabelTextSize ="13dp"/>
+            app:met_floatingLabelTextSize ="12sp"/>-->
         <com.xuexiang.xui.widget.button.roundbutton.RoundButton
             android:id="@+id/button_select"
             style="@style/RoundButton.Auto"
@@ -57,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#d4d4d4"
+        android:layout_marginTop="5dp"
         android:id="@+id/content">
     </FrameLayout>
 

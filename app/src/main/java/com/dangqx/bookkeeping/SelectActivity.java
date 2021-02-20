@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dangqx.bookkeeping.db.Cost;
+import com.dangqx.bookkeeping.db.User;
 import com.xuexiang.xui.XUI;
 
 import org.litepal.LitePal;
@@ -45,24 +47,35 @@ public class SelectActivity extends BaseActivity {
 
         EditText dateEdit = findViewById(R.id.select_date);
         EditText categoryEdit = findViewById(R.id.select_category);
-        EditText moneyEdit = findViewById(R.id.select_money);
+        //EditText moneyEdit = findViewById(R.id.select_money);
         Button selectButton = findViewById(R.id.button_select);
+
+
 
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String date = dateEdit.getText().toString();
-                /*String category = categoryEdit.getText().toString();
-                String lMoney = moneyEdit.getText().toString().split(",")[0];
+                String category = categoryEdit.getText().toString();
+                /*String lMoney = moneyEdit.getText().toString().split(",")[0];
                 String rMoney = moneyEdit.getText().toString().split(",")[1];*/
                 //Log.d("获取的数据", "onClick: "+date+","+category+","+lMoney+","+rMoney);
-                if (date != null && date.length() != 0){
-                    costList = LitePal.where("date = ? and userId = ? ", date,userId).find(Cost.class);
+
+                if (date.length() == 0 && category.length() == 0){
+                    Toast.makeText(SelectActivity.this, "查询条间为空！", Toast.LENGTH_SHORT).show();
+                }else {
+                    if ( category.length() == 0){
+                        costList = LitePal.where("date = ? and userId = ? ", date,userId).find(Cost.class);
+                    }else if (date.length() == 0 ){
+                        costList = LitePal.where("category = ? and userId = ? ", category,userId).find(Cost.class);
+                    }else {
+                        costList = LitePal.where("date = ? and category = ? and userId = ?",date,category,userId).find(Cost.class);
+                    }
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content,new SelectFragment(costList));
+                    fragmentTransaction.commit();
                 }
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content,new SelectFragment(costList));
-                fragmentTransaction.commit();
             }
         });
     }

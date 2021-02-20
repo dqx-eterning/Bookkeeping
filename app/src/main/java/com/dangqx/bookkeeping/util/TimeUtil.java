@@ -88,12 +88,20 @@ public class TimeUtil {
      * @return
      */
     public String getTimes() {
+        String month  = null;
         Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 
         String year = String.valueOf(cal.get(Calendar.YEAR));
-        String month = String.valueOf(cal.get(Calendar.MONTH)+1);
+        String month1 = String.valueOf(cal.get(Calendar.MONTH)+1);
         String day = String.valueOf(cal.get(Calendar.DATE));
+        if (month1.length()==1){
+            StringBuilder stringBuilder = new StringBuilder(month1);
+            StringBuilder append = stringBuilder.append("0");
+            month = append.reverse().toString();
+        }else{
+            month = month1;
+        }
         System.out.println(year + "-" + month + "-" + day);
         return  year + "-" + month + "-" + day;
     }

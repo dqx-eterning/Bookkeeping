@@ -149,7 +149,10 @@ public class ContentActivity extends BaseActivity {
     private List<Cost> todayCosts(){
         List<Cost> costList = new ArrayList<>();
         String times = timeUtil.getTimes();
+        Log.d("今天的时间?", "todayCosts: "+times);
         for (Cost cost : costs) {
+            Log.d("数据库今天的时间?", "todayCosts: "+cost.getDate()+cost.getDate().equals(times));
+
             if (cost.getDate().equals(times)){
                 costList.add(cost);
             }
